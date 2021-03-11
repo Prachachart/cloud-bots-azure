@@ -3,7 +3,7 @@ import time
 import azure.functions as func
 import json
 import sys, os.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname( __file__ ))))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__))))
 #Dot before file name use for relative path in Azure function app, need to be removed for local development
 import hashlib
 import base64
@@ -28,7 +28,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             return func.HttpResponse(f'Unauthorized', status_code=401)
 
         # Make creds to bytes
-        string_requester_credentials = req.headers['Authorization']
+        string_requester_credentials = str.split(
+            req.headers['Authorization'])[1]
         logging.debug(string_requester_credentials)
         byte_requester_credentials = base64.b64decode(
             string_requester_credentials.encode('ascii'), validate=True)
@@ -53,7 +54,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     try:
         source_message = req.get_json()
     except Exception as e:
-        logging.info('Bad request.')
+        logging.info('Bad request: ' + str(e))
         return func.HttpResponse(f'Azure cloud bot had an error',
                                  status_code=400)
 
@@ -69,7 +70,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             export_results = handle_event(source_message, output_message)
         except Exception as e:
             export_results = True
-            logging.info(f'{__file__} - Handle event failed')
+            logging.info(f'{__file__} - Handle event failed ' + str(e))
             output_message['Handle event failed'] = str(e)
         if export_results:
             if os.getenv('OUTPUT_EMAIL'):
