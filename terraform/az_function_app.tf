@@ -12,6 +12,9 @@ resource "azurerm_function_app" "cg-cloudbots" {
       "OUTPUT_EMAIL" : var.output_email
       "SEND_GRID_API_CLIENT" : var.sendgrid_api_key
       "SEND_LOGS" : var.send_logs
-      "TENANT" : var.tenant
+      "TENANT" : var.tenant,
+      "BASIC_AUTH_ENABLED" : var.basic_auth_enabled,
+      "BASIC_AUTH_USERNAME" : var.basic_auth_username,
+      "BASIC_AUTH_PASSWORD" : var.basic_auth_password
   }
 }

@@ -64,6 +64,21 @@ variable "send_logs" {
     default = "true"
 }
 
+variable "basic_auth_enabled" {
+    description = "Basic Auth Enabled Flag"
+    default = "0"
+}
+
+variable "basic_auth_username" {
+    description = "Basic Auth Username"
+    default = "xxxxxxxxxxxxxxx"
+}
+
+variable "basic_auth_password" {
+    description = "Basic Auth Password"
+    default = "xxxxxxxxxxxxxxx"
+}
+
 variable "tenant" {
     description = "Azure AD tenant ID"
     default = "xxxxxxxxxxxxxxx"
